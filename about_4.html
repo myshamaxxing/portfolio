@@ -4,8 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Me – Mysha Mosharaf</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Nothing+You+Could+Do&family=Playfair+Display:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --ink: #1f2a2b;
+      --ink-muted: #4a5c62;
+      --accent: #3a5a95;
+      --paper: #eff2f2;
+      --sky: #b9cdd0;
+      --card: rgba(92, 116, 128, 0.55);
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -14,224 +26,398 @@
 
     html, body {
       width: 100%;
-      overflow-x: hidden;
-      overflow-y: auto;
-      font-family: Arial, sans-serif;
-      background: #000;
+      min-height: 100%;
+      font-family: 'Inter', sans-serif;
+      background: #e8ecec;
+      color: var(--ink);
     }
 
-    /* ---------- NAV ---------- */
-    .nav-fixed {
-      position: fixed;
-      width: 75%;
-      left: 50%;
-      top: 0;
-      transform: translateX(-50%);
-      z-index: 9999;
-    }
-
-    .navigation-links {
-      width: 100%;
-      height: 40px;
-      margin-top: 100px;
-      outline: 1px solid white;
+    body {
       display: flex;
       justify-content: center;
-      align-items: center;
-      gap: clamp(100px, 10vw, 376px);
+      align-items: flex-start;
+      padding: 40px 24px 80px;
+      background-image:
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,0.6), transparent 45%),
+        radial-gradient(circle at 80% 30%, rgba(255,255,255,0.5), transparent 40%),
+        linear-gradient(180deg, #e2e8e9 0%, #d2d9da 100%);
     }
 
-    .navigation-link-item {
-      color: #FCFCFA;
-      font-size: clamp(10px, 2vw, 20px);
-      font-family: 'Archivo Black', sans-serif;
-      font-weight: 900;
-      text-transform: uppercase;
-      text-decoration: none;
-      transition: color 0.25s ease, transform 0.25s ease;
-    }
-
-    .navigation-link-item:hover,
-    .navigation-link-item:focus,
-    .navigation-link-item.active {
-      color: #3A5A95;
-      transform: translateY(-2px);
-    }
-
-    /* ---------- LAYOUT ---------- */
-    .main-container {
+    .page {
+      width: min(1200px, 92vw);
       position: relative;
-      width: 100vw;
-      min-height: 100vh;
+      background: linear-gradient(180deg, rgba(186, 206, 210, 0.9), rgba(166, 188, 192, 0.9));
+      border-radius: 18px;
+      padding: 48px 60px 80px;
+      box-shadow: 0 20px 60px rgba(34, 58, 72, 0.2);
+      overflow: hidden;
     }
 
-    .background-image {
-      width: 100vw;
-      height: auto;
-      display: block;
-    }
-
-    .about-content {
+    .page::before,
+    .page::after {
+      content: "";
       position: absolute;
       inset: 0;
-      z-index: 10;
+      background-image:
+        radial-gradient(circle at 10% 30%, rgba(255,255,255,0.35), transparent 35%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.3), transparent 40%),
+        radial-gradient(circle at 60% 70%, rgba(255,255,255,0.25), transparent 45%);
+      opacity: 0.7;
+      pointer-events: none;
     }
 
-    /* ---------- SECTIONS ---------- */
-    .name-section {
-      position: absolute;
-      left: 12%;
-      top: 200px;
+    .page::after {
+      inset: auto 0 0 0;
+      height: 140px;
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,0.45));
     }
 
-    .name-section img {
-      width: clamp(200px, 25vw, 400px);
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-top: 2px solid rgba(255,255,255,0.7);
+      border-bottom: 2px solid rgba(255,255,255,0.7);
+      font-family: 'Archivo Black', sans-serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #f7f7f5;
+      font-size: 18px;
     }
 
-    .bio-text {
-      position: absolute;
-      left: 12%;
-      top: 420px;
-      max-width: 55%;
+    nav a {
+      color: inherit;
+      text-decoration: none;
+      padding: 0 16px;
     }
 
-    .bio-text img {
-      width: 100%;
+    nav a.active {
+      color: #ffffff;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
 
-    .tools-section {
-      position: absolute;
-      right: 12%;
-      top: 200px;
+    .top-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 40px;
+      margin-top: 60px;
     }
 
-    .tools-label,
-    .programming-label,
-    .links-label,
-    .myself-label,
-    .hometowns-label {
+    .name-block h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 6vw, 88px);
+      line-height: 0.95;
+      color: #f1f5f4;
+      text-shadow: 0 6px 12px rgba(20, 40, 45, 0.3);
+    }
+
+    .bio {
+      margin-top: 30px;
+      font-size: clamp(16px, 2vw, 22px);
+      line-height: 1.4;
+      max-width: 520px;
+      color: #1f2a2b;
+    }
+
+    .bio em {
       font-family: 'Nothing You Could Do', cursive;
-      font-size: clamp(20px, 2.5vw, 32px);
-      color: #3A5A95;
-      font-style: italic;
+      color: #a06c4c;
+      font-style: normal;
+    }
+
+    .tools-panel {
+      align-self: start;
+      justify-self: end;
+      position: relative;
+    }
+
+    .scribble-label {
+      font-family: 'Nothing You Could Do', cursive;
+      color: #e8f2f2;
+      font-size: 26px;
       position: absolute;
+      top: -28px;
+      left: 8px;
+      transform: rotate(-4deg);
     }
 
-    .tools-label { top: -30px; right: 20px; }
-
-    .tools-section img {
-      width: clamp(200px, 20vw, 280px);
+    .tools-card {
+      background: rgba(36, 46, 53, 0.35);
+      border-radius: 16px;
+      padding: 18px 20px;
+      display: flex;
+      gap: 12px;
+      border: 2px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(4px);
     }
 
-    .programming-section {
-      position: absolute;
-      right: 8%;
-      top: 340px;
+    .tool-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: white;
+      background: #1f2730;
+      font-size: 20px;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.2);
     }
 
-    .programming-label {
-      top: -35px;
-      right: -40px;
+    .tool-icon.gradient {
+      background: radial-gradient(circle at 30% 30%, #ff7d57, #3b3f86);
+    }
+
+    .programming {
+      margin-top: 40px;
+      display: grid;
+      justify-items: end;
+      gap: 12px;
+    }
+
+    .programming .scribble-label {
+      position: static;
       transform: rotate(-8deg);
+      color: #dfe9e8;
+      text-align: right;
     }
 
-    .programming-section img {
-      width: clamp(100px, 10vw, 140px);
+    .lang-card {
+      width: 120px;
+      padding: 14px 12px;
+      border-radius: 16px;
+      background: rgba(68, 85, 98, 0.55);
+      border: 2px solid rgba(255,255,255,0.3);
+      display: grid;
+      gap: 12px;
+      justify-items: center;
     }
 
-    .links-section {
+    .lang-pill {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background: #f1f3f4;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      color: #1f2a2b;
+      box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
+    }
+
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 70px;
+      align-items: end;
+    }
+
+    .card {
+      border-radius: 22px;
+      background: var(--card);
+      padding: 22px;
+      border: 2px solid rgba(255,255,255,0.35);
+      position: relative;
+      min-height: 210px;
+    }
+
+    .card h3 {
+      font-family: 'Nothing You Could Do', cursive;
+      font-size: 24px;
+      color: #e9f0f0;
       position: absolute;
-      left: 14%;
-      bottom: 10%;
+      top: -36px;
+      left: 12px;
+      transform: rotate(-6deg);
     }
 
-    .links-label { top: -40px; left: 10px; }
-
-    .links-section img {
-      width: clamp(140px, 13vw, 180px);
+    .links-card {
+      display: grid;
+      gap: 14px;
     }
 
-    .myself-section {
+    .link-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #f1f5f5;
+      font-weight: 500;
+    }
+
+    .link-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.85);
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      color: #3d515a;
+    }
+
+    .myself-card {
+      display: grid;
+      place-items: center;
+    }
+
+    .myself-photo {
+      width: 180px;
+      height: 180px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(251, 219, 195, 0.85), rgba(160, 192, 215, 0.9));
+      border: 3px solid rgba(255,255,255,0.6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .myself-photo::after {
+      content: "";
       position: absolute;
-      left: 50%;
-      bottom: 10%;
-      transform: translateX(-50%);
+      inset: 20px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(74, 98, 112, 0.3), rgba(255,255,255,0.1));
     }
 
-    .myself-label { top: -40px; left: 20px; }
-
-    .myself-section img {
-      width: clamp(200px, 20vw, 280px);
+    .hometowns-card {
+      display: grid;
+      gap: 14px;
     }
 
-    .hometowns-section {
+    .map {
+      width: 100%;
+      height: 150px;
+      border-radius: 18px;
+      background: rgba(74, 98, 112, 0.6);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .map::before {
+      content: "";
       position: absolute;
-      right: 10%;
-      bottom: 12%;
+      inset: 20px;
+      border: 2px dashed rgba(255,255,255,0.35);
+      border-radius: 12px;
     }
 
-    .hometowns-label { top: -40px; right: 30px; }
+    .pin {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #c9e5ff;
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.35);
+    }
 
-    .hometowns-section img {
-      width: clamp(280px, 28vw, 380px);
+    .pin.one { top: 40%; left: 20%; }
+    .pin.two { top: 60%; left: 52%; }
+    .pin.three { top: 35%; left: 78%; }
+
+    .map-labels {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Nothing You Could Do', cursive;
+      color: #dbe7e6;
+      font-size: 16px;
+    }
+
+    @media (max-width: 980px) {
+      .top-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tools-panel {
+        justify-self: start;
+      }
+
+      .bottom-grid {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 8px;
+      }
     }
   </style>
 </head>
 
 <body>
+  <main class="page">
+    <nav>
+      <a href="about_4.html" class="active">About Me</a>
+      <a href="resume.html">Resume</a>
+      <a href="works.html">Works</a>
+    </nav>
 
-  <!-- NAV -->
-  <div class="nav-fixed">
-    <div class="navigation-links">
-      <a href="../about me/index.html" class="navigation-link-item active">About me</a>
-      <a href="../resume.html" class="navigation-link-item">Resume</a>
-      <a href="../works.html" class="navigation-link-item">Works</a>
-    </div>
-  </div>
-
-  <!-- ABOUT CONTENT -->
-  <div class="main-container">
-
-    <!-- background -->
-    <img class="background-image" src="../images/background.png" alt="Background">
-
-    <div class="about-content">
-
-      <div class="name-section">
-        <img src="images/Frame_6.png" alt="Mysha Mosharaf">
+    <section class="top-grid">
+      <div class="name-block">
+        <h1>Mysha<br>Mosharaf</h1>
+        <p class="bio">
+          I’m a <em>computer science</em> and <em>studio art</em> double major at <strong>UVA</strong> working in
+          UI/UX design, programming, and graphic design. I’m interested in how design and code intersect to
+          create clear, intuitive digital experiences.
+        </p>
       </div>
 
-      <div class="bio-text">
-        <img src="images/Frame_6.png" alt="Bio text">
+      <div class="tools-panel">
+        <span class="scribble-label">Tools</span>
+        <div class="tools-card">
+          <div class="tool-icon gradient">🖌️</div>
+          <div class="tool-icon">Fi</div>
+          <div class="tool-icon">Ae</div>
+          <div class="tool-icon">Ps</div>
+        </div>
+
+        <div class="programming">
+          <span class="scribble-label">Programming<br>Languages</span>
+          <div class="lang-card">
+            <div class="lang-pill">HTML</div>
+            <div class="lang-pill">Java</div>
+            <div class="lang-pill">JS</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bottom-grid">
+      <div class="card links-card">
+        <h3>Links</h3>
+        <div class="link-row">
+          <span class="link-icon">✉️</span>
+          myshamosh@outlook.com
+        </div>
+        <div class="link-row">
+          <span class="link-icon">in</span>
+          @myshamo
+        </div>
+        <div class="link-row">
+          <span class="link-icon">git</span>
+          @myshamosharring
+        </div>
       </div>
 
-      <div class="tools-section">
-        <div class="tools-label">Tools</div>
-        <img src="images/Frame_10.png" alt="Tools">
+      <div class="card myself-card">
+        <h3>Myself</h3>
+        <div class="myself-photo"></div>
       </div>
 
-      <div class="programming-section">
-        <div class="programming-label">Programming<br>Languages</div>
-        <img src="images/Frame_11.png" alt="Programming">
+      <div class="card hometowns-card">
+        <h3>Hometowns</h3>
+        <div class="map">
+          <span class="pin one"></span>
+          <span class="pin two"></span>
+          <span class="pin three"></span>
+        </div>
+        <div class="map-labels">
+          <span>Virginia, US</span>
+          <span>Oman</span>
+          <span>Bangladesh</span>
+        </div>
       </div>
-
-      <div class="links-section">
-        <div class="links-label">Links</div>
-        <img src="images/Group_13.png" alt="Links">
-      </div>
-
-      <div class="myself-section">
-        <div class="myself-label">Myself</div>
-        <img src="images/Group_3.png" alt="Myself">
-      </div>
-
-      <div class="hometowns-section">
-        <div class="hometowns-label">Hometowns</div>
-        <img src="images/Frame_12.png" alt="Hometowns">
-      </div>
-
-    </div>
-  </div>
-
+    </section>
+  </main>
 </body>
 </html>
