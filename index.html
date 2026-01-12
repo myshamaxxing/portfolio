@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mosharaf Mysha - Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      font-family: Arial, sans-serif;
+      background: #000;
+    }
+
+    .main-container {
+      width: 100vw;
+      min-height: 100vh; /* (you had 100vw, use vh for height) */
+      position: relative; /* IMPORTANT for absolute overlay */
+    }
+
+    .background-image {
+      display: block;
+      width: 100vw;
+      height: auto;
+    }
+
+    .overlay-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .flowers-image {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 70%;
+      height: auto;
+      z-index: 5;
+
+      transform:
+        translateX(-50%)
+        translateY(var(--flowersY, 0px))
+        scale(var(--flowersS, 1));
+      transform-origin: center bottom;
+    }
+
+    .rabbit-image {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 55%;
+      height: auto;
+      z-index: 6;
+
+      transform:
+        translateX(-50%)
+        translateY(var(--rabbitY, 0px))
+        scale(var(--rabbitS, 1));
+      transform-origin: center bottom;
+    }
+
+    .text-content-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      pointer-events: auto;
+    }
+
+    /* .navigation-bar {
+      width: 75%;
+      transform: translateX(-50%);
+      height: auto;
+      left: 50%;
+      top: 0;
+      position: absolute;
+    } */
+
+    .nav-fixed{
+      position: fixed;
+      width: 75%;
+      transform: translateX(-50%);
+      height: auto;
+      left: 50%;
+      top: 0;
+      z-index: 9999;
+    }
+
+
+    .navigation-links {
+      width: 100%;
+      height: 40px;
+      position: absolute;
+      left: 0;
+      top: 100px;
+      background: rgba(252, 252, 250, 0);
+      outline: 1px white solid;
+      outline-offset: -2px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(100px, 10vw, 376px);
+    }
+
+    .navigation-link-item {
+      color: #FCFCFA;
+      font-size: clamp(10px, 2vw, 20px);
+      font-family: 'Archivo Black', sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.2;
+      text-align: center;
+
+      text-decoration: none;      /* remove underline */
+      cursor: pointer;
+      transition: 
+      color 0.25s ease,
+      transform 0.25s ease,
+      opacity 0.25s ease;
+    }
+
+    .navigation-link-item:hover,
+    .navigation-link-item:focus {
+      color: #3A5A95;           
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+
+    .navigation-link-item.active {
+      color: #3A5A95;
+    }
+
+    .overlay-layer { 
+      pointer-events: none;
+    }
+
+    .text-content-layer {
+      pointer-events: auto;
+    }
+
+
+    .portfolio-label {
+      position: absolute;
+      left: 20%;
+      top: 270px;
+      color: #3A5A95;
+      font-size: clamp(20px, 4vw, 30px);
+      font-family: 'Nothing You Could Do', cursive;
+      font-weight: 400;
+      text-transform: capitalize;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .name-fixed {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 10000;
+  pointer-events: auto;
+  transform-origin: center;
+  cursor: pointer;
+  text-decoration: none; 
+}
+
+
+  .your-name-container {
+    position: relative;      /* change from absolute */
+    transform: none;         /* remove translate */
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+    .your-name-text {
+    color: white;
+    font-size: clamp(36px, 6vw, 110px); /* 👈 tighter max */
+    font-family: Cochin, serif;
+    font-weight: 500;
+    line-height: 0.9;
+    text-align: center;
+  }
+
+    .left-curly-brace,
+.right-curly-brace {
+  position: absolute;
+  top: 390px;                 /* keep your old placement */
+  color: #3A5A95;
+  font-size: clamp(24px, 4vw, 60px);
+  font-family: 'Nothing You Could Do', cursive;
+  font-weight: 400;
+  line-height: 1;
+  z-index: 12;                /* above background */
+}
+
+    .left-curly-brace { left:25%; }
+    .right-curly-brace { left: 75% }
+
+    /* Scroll duration of the animation */
+    .scroll-area{
+         /* increase for longer animation */
+      position: relative;
+    }
+
+    /* Sticky scene pinned while we scroll through scroll-area */
+    .scene{
+      position: relative;
+      width: 100vw;
+    }
+
+    /* Optional: space after the hero */
+    
+    
+  </style>
+</head>
+<body>
+
+  <!-- ✅ STICKY NAV (always visible) -->
+  <div class="nav-fixed" id="navFixed">
+    <div class="navigation-links">
+      <a href="about.html" class="navigation-link-item">About me</a>
+      <a href="resume.html" class="navigation-link-item">Resume</a>
+      <a href="works.html" class="navigation-link-item">Works</a>
+    </div>
+  </div>
+
+  <!-- ✅ STICKY NAME (animates on scroll) -->
+<a href="index.html" class="name-fixed" id="nameFixed">
+  <div class="your-name-container">
+    <div class="your-name-text">Mysha</div>
+    <div class="your-name-text">Mosharaf</div>
+  </div>
+</a>
+
+  
+  <!-- ⬇️ SCROLLING BACKGROUND SCENE -->
+  <section class="scroll-area" id="heroScroll">
+    <div class="main-container">
+
+      <img class="background-image" src="images/background.png" alt="Background">
+
+      <div class="portfolio-label">portfolio of :</div>
+    <div class="left-curly-brace">{</div>
+    <div class="right-curly-brace">}</div>
+
+      <div class="overlay-layer">
+        <img class="flowers-image" src="images/flowers.PNG" alt="Flowers">
+        <img class="rabbit-image" src="images/rabbit.png" alt="Rabbit photo">
+      </div>
+
+      
+    </div>
+  </section>
+
+  <section class="after"></section>
+
+ 
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const nameEl = document.getElementById("nameFixed");
+      const navEl = document.getElementById("navFixed");
+      if (!nameEl || !navEl) return;
+  
+      const scroller = document.scrollingElement || document.documentElement;
+  
+      function clamp01(n) { return Math.max(0, Math.min(1, n)); }
+      function lerp(a, b, t) { return a + (b - a) * t; }
+  
+      // Tweak these:
+      const endScale = 0.48;   // final size near nav
+      const navGap = 12;       // spacing below nav
+  
+      function update() {
+        // progress top->bottom of page
+        const maxScroll = Math.max(1, scroller.scrollHeight - window.innerHeight);
+        const t = clamp01(scroller.scrollTop / maxScroll);
+  
+        // use UNTRANSFORMED height (stable)
+        const baseH = nameEl.offsetHeight;
+  
+        // nav position (in viewport coords)
+        const navRect = navEl.getBoundingClientRect();
+        const navBottom = navRect.bottom + navGap;
+  
+        // Where should the name end (as a fixed element)?
+        // name is centered at 50vh with translate(-50%, -50%),
+        // so its top edge at end should be navBottom:
+        // topEdge = (50vh + yEnd) - (scaledHeight/2)
+        // set topEdge = navBottom -> solve for yEnd:
+        const scaledHEnd = baseH * endScale;
+        const yEnd = navBottom + (scaledHEnd / 2) - (window.innerHeight / 2);
+  
+        // animate
+        const easedT = t * t * (3 - 2 * t); // smoothstep
+        const scale = lerp(1, endScale, easedT);
+        const y = lerp(0, yEnd, easedT);
+  
+        nameEl.style.transform =
+          `translate(-50%, -50%) translateY(${y}px) scale(${scale})`;
+      }
+  
+      update();
+      window.addEventListener("scroll", update, { passive: true });
+      window.addEventListener("resize", update);
+    });
+  </script>
+  
+  
+</body>
+
+
+</html>

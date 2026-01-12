@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About – Mysha Mosharaf</title>
+
+  <style>
+   /* ===== ABOUT LAYOUT WRAPPER ===== */
+   .main-container{
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+/* =========================
+   HEADER (NAV + NAME)
+   ========================= */
+
+/* always on top */
+.nav-fixed{
+  position: fixed;
+  width: 75%;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  height: auto;
+  z-index: 999999;
+  pointer-events: auto;
+}
+
+/* keep your exact nav box placement (100px down) */
+.navigation-links{
+  width: 100%;
+  height: 40px;
+  position: absolute;
+  left: 0;
+  top: 100px;
+  background: rgba(252, 252, 250, 0);
+  outline: 1px solid white;
+  outline-offset: -2px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(100px, 10vw, 376px);
+
+  pointer-events: auto;
+}
+
+.navigation-link-item{
+  color: #FCFCFA;
+  font-size: clamp(10px, 2vw, 20px);
+  font-family: 'Archivo Black', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.2;
+  text-align: center;
+
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
+}
+
+.navigation-link-item:hover,
+.navigation-link-item:focus{
+  color: #3A5A95;
+  transform: translateY(-2px);
+  opacity: 0.9;
+  outline: none;
+}
+
+.navigation-link-item.active{
+  color: #3A5A95;
+}
+
+/* if you still use overlay layers anywhere */
+.overlay-layer{ pointer-events: none; }
+.text-content-layer{ pointer-events: auto; }
+
+/* =========================
+   NAME (clickable overlay above nav)
+   ========================= */
+
+.name-fixed{
+  position: fixed;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  z-index: 1000000;
+  pointer-events: auto;
+  cursor: pointer;
+  text-decoration: none;
+  transform-origin: center;
+}
+
+/* important: keep the link clickable, but prevent children from "stealing" clicks */
+.name-fixed *{
+  pointer-events: none;
+}
+
+.your-name-container{
+  position: relative;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.your-name-text{
+  color: #fff;
+  font-size: clamp(36px, 3vw, 110px);
+  font-family: Cochin, serif;
+  font-weight: 500;
+  line-height: 0.9;
+  text-align: center;
+}
+
+
+/* background stays behind everything */
+.background-image{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 1;
+}
+
+/* ensure about content is above background */
+.about-wrap{
+  position: relative;
+  z-index: 2;
+  padding: 180px 60px 40px 230px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+/* ===== TOP SECTION ===== */
+.about-top{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 60px;
+}
+
+/* LEFT column */
+.about-left{
+  position: relative;
+  flex: 1;
+}
+
+/* name.png - positioned absolutely so you can move it */
+.about-name-img{
+  position: absolute;
+  top: 0;
+  left: -50px;
+  width: 400px;
+  height: auto;
+  display: block;
+}
+
+/* Paragraph - positioned absolutely so you can move it */
+.about-paragraph{
+  position: absolute;
+  top: 150px;
+  left: 30px;
+  max-width: 750px;
+  font-family: Cochin, serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+  color: #000;
+  margin: 0;
+}
+
+/* Inline tag styles */
+.tag-outline{
+  color: transparent;
+  -webkit-text-stroke-width: 0.8px;
+  -webkit-text-stroke-color: #000;
+  -webkit-text-fill-color: transparent;
+  font-family: Cochin, serif;
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+}
+
+.tag-script{
+  color: #FFF;
+  font-family: "Nothing You Could Do", cursive;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+}
+
+.tag-uva{
+  color: #F67B00;
+  font-family: Cochin, serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+}
+
+/* RIGHT column: tools and programming stickers */
+.about-right{
+  position: relative;
+  flex: 0 0 auto;
+  width: 400px;
+  height: 400px;
+}
+
+/* Tools image - positioned absolutely so you can move it */
+.tools-img{
+  position: absolute;
+  top: 25px;
+  right: 650px;
+  width: auto;
+  height: auto;
+  max-width: 350px;
+  display: block;
+}
+
+/* Programming languages image - positioned absolutely so you can move it */
+.programming-img{
+  position: absolute;
+  top: 0px;
+  right: 490px;
+  width: auto;
+  height: auto;
+  max-width: 140px;
+  display: block;
+}
+
+/* ===== BOTTOM CARDS ===== */
+.about-bottom{
+  position: relative;
+  display: flex;
+  gap: 20px;
+  align-items: flex-end;
+}
+
+/* Card images - positioned absolutely so you can move them */
+.phone-card-img{
+  position: absolute;
+  bottom: 230px;
+  left: -35px;
+  width: auto;
+  height: auto;
+  max-height: 310px;
+  display: block;
+}
+
+.me-card-img{
+  position: absolute;
+  bottom: 230px;
+  left: 230px;
+  width: auto;
+  height: auto;
+  max-height: 280px;
+  display: block;
+}
+
+.map-card-img{
+  position: absolute;
+  bottom: 230px;
+  left: 550px;
+  width: auto;
+  height: auto;
+  max-height: 250px;
+  display: block;
+}
+
+html, body{
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1100px){
+  .about-wrap{
+    padding: 160px 40px 40px 40px;
+  }
+
+  .about-top{
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .about-right{
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .about-bottom{
+    grid-template-columns: 1fr;
+  }
+
+  .about-name-img{
+    width: min(593px, 92vw);
+    height: auto;
+  }
+
+  .about-paragraph{
+    font-size: clamp(18px, 4vw, 28px);
+    line-height: 1.3;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+
+<!-- ===== ABOUT CONTENT (ONLY) ===== -->
+
+  <!-- ✅ STICKY NAV (always visible) -->
+  <div class="nav-fixed" id="navFixed">
+    <div class="navigation-links">
+      <a href="about.html" class="navigation-link-item active">About me</a>
+      <a href="resume.html" class="navigation-link-item">Resume</a>
+      <a href="works.html" class="navigation-link-item">Works</a>
+    </div>
+  </div>
+
+  <!-- ✅ STICKY NAME (animates on scroll) -->
+<a href="index.html" class="name-fixed" id="nameFixed">
+  <div class="your-name-container">
+    <div class="your-name-text">Mysha</div>
+    <div class="your-name-text">Mosharaf</div>
+  </div>
+</a>
+
+
+<div class="main-container">
+  <!-- Background image -->
+  <img class="background-image" src="images/background.png" alt="Background">
+
+  <!-- About contents -->
+  <div class="about-wrap">
+
+  <!-- TOP: Name + paragraph + right-side stickers -->
+  <section class="about-top">
+    <div class="about-left">
+      <img class="about-name-img" src="images/name.png" alt="Mysha Mosharaf">
+
+      <p class="about-paragraph">
+        I'm a <span class="tag-outline">computer science</span> and
+        <span class="tag-outline">studio art</span> double major at
+        <span class="tag-uva">UVA</span> working in UI/UX design, programming,
+        and graphic design. I'm interested in how design and code intersect
+        to create clear, intuitive digital experiences.
+      </p>
+    </div>
+
+    <div class="about-right">
+      <!-- Tools PNG -->
+      <img class="tools-img" src="images/tools.png" alt="Tools">
+
+      <!-- Programming Languages PNG -->
+      <img class="programming-img" src="images/programminglanguages.png" alt="Programming Languages">
+    </div>
+  </section>
+
+  <!-- BOTTOM: 3 card images -->
+  <section class="about-bottom">
+    <img class="phone-card-img" src="images/phone.png" alt="Links card">
+    <img class="me-card-img" src="images/me.png" alt="Myself card">
+    <img class="map-card-img" src="images/map.png" alt="Hometowns card">
+  </section>
+</div>
+
+
+</body>
+</html>

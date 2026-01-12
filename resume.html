@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume – Mysha Mosharaf</title>
+
+  <style>
+/* ===== RESUME LAYOUT ===== */
+.main-container{
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* background stays behind everything */
+.background-image{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 1;
+}
+
+/* =========================
+   HEADER (NAV + NAME)
+   ========================= */
+
+/* always on top */
+.nav-fixed{
+  position: fixed;
+  width: 75%;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  height: auto;
+  z-index: 999999;
+  pointer-events: auto;
+}
+
+/* keep your exact nav box placement (100px down) */
+.navigation-links{
+  width: 100%;
+  height: 40px;
+  position: absolute;
+  left: 0;
+  top: 100px;
+  background: rgba(252, 252, 250, 0);
+  outline: 1px solid white;
+  outline-offset: -2px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(100px, 10vw, 376px);
+
+  pointer-events: auto;
+}
+
+.navigation-link-item{
+  color: #FCFCFA;
+  font-size: clamp(10px, 2vw, 20px);
+  font-family: 'Archivo Black', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.2;
+  text-align: center;
+
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
+}
+
+.navigation-link-item:hover,
+.navigation-link-item:focus{
+  color: #3A5A95;
+  transform: translateY(-2px);
+  opacity: 0.9;
+  outline: none;
+}
+
+.navigation-link-item.active{
+  color: #3A5A95;
+}
+
+/* =========================
+   NAME (clickable overlay above nav)
+   ========================= */
+
+.name-fixed{
+  position: fixed;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  z-index: 1000000;
+  pointer-events: auto;
+  cursor: pointer;
+  text-decoration: none;
+  transform-origin: center;
+}
+
+/* important: keep the link clickable, but prevent children from "stealing" clicks */
+.name-fixed *{
+  pointer-events: none;
+}
+
+.your-name-container{
+  position: relative;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.your-name-text{
+  color: #fff;
+  font-size: clamp(36px, 3vw, 110px);
+  font-family: Cochin, serif;
+  font-weight: 500;
+  line-height: 0.9;
+  text-align: center;
+}
+
+/* Resume content */
+.resume-wrap{
+  position: absolute;
+  z-index: 2;
+  padding: 180px 60px 40px 10px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.resume-viewer{
+  width: 100%;
+  max-width: 900px;
+  height: 100%;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.resume-viewer iframe{
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+html, body{
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1100px){
+  .resume-wrap{
+    padding: 160px 20px 40px 20px;
+  }
+
+  .resume-viewer{
+    max-width: 100%;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ✅ STICKY NAV (always visible) -->
+  <div class="nav-fixed" id="navFixed">
+    <div class="navigation-links">
+      <a href="about.html" class="navigation-link-item">About me</a>
+      <a href="resume.html" class="navigation-link-item active">Resume</a>
+      <a href="works.html" class="navigation-link-item">Works</a>
+    </div>
+  </div>
+
+  <!-- ✅ STICKY NAME -->
+  <a href="index.html" class="name-fixed" id="nameFixed">
+    <div class="your-name-container">
+      <div class="your-name-text">Mysha</div>
+      <div class="your-name-text">Mosharaf</div>
+    </div>
+  </a>
+
+  <div class="main-container">
+    <!-- Background image -->
+    <img class="background-image" src="images/background.png" alt="Background">
+
+    <!-- Resume content -->
+    <div class="resume-wrap">
+      <div class="resume-viewer">
+        <iframe src="Mysha_Mosharaf Resume.pdf" type="application/pdf"></iframe>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
