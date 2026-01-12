@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Me – Mysha Mosharaf</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      font-family: Arial, sans-serif;
+      background: #000;
+    }
+
+    /* ---------- NAV ---------- */
+    .nav-fixed {
+      position: fixed;
+      width: 75%;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      z-index: 9999;
+    }
+
+    .navigation-links {
+      width: 100%;
+      height: 40px;
+      margin-top: 100px;
+      outline: 1px solid white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(100px, 10vw, 376px);
+    }
+
+    .navigation-link-item {
+      color: #FCFCFA;
+      font-size: clamp(10px, 2vw, 20px);
+      font-family: 'Archivo Black', sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color 0.25s ease, transform 0.25s ease;
+    }
+
+    .navigation-link-item:hover,
+    .navigation-link-item:focus,
+    .navigation-link-item.active {
+      color: #3A5A95;
+      transform: translateY(-2px);
+    }
+
+    /* ---------- LAYOUT ---------- */
+    .main-container {
+      position: relative;
+      width: 100vw;
+      min-height: 100vh;
+    }
+
+    .background-image {
+      width: 100vw;
+      height: auto;
+      display: block;
+    }
+
+    .about-content {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+    }
+
+    /* ---------- SECTIONS ---------- */
+    .name-section {
+      position: absolute;
+      left: 12%;
+      top: 200px;
+    }
+
+    .name-section img {
+      width: clamp(200px, 25vw, 400px);
+    }
+
+    .bio-text {
+      position: absolute;
+      left: 12%;
+      top: 420px;
+      max-width: 55%;
+    }
+
+    .bio-text img {
+      width: 100%;
+    }
+
+    .tools-section {
+      position: absolute;
+      right: 12%;
+      top: 200px;
+    }
+
+    .tools-label,
+    .programming-label,
+    .links-label,
+    .myself-label,
+    .hometowns-label {
+      font-family: 'Nothing You Could Do', cursive;
+      font-size: clamp(20px, 2.5vw, 32px);
+      color: #3A5A95;
+      font-style: italic;
+      position: absolute;
+    }
+
+    .tools-label { top: -30px; right: 20px; }
+
+    .tools-section img {
+      width: clamp(200px, 20vw, 280px);
+    }
+
+    .programming-section {
+      position: absolute;
+      right: 8%;
+      top: 340px;
+    }
+
+    .programming-label {
+      top: -35px;
+      right: -40px;
+      transform: rotate(-8deg);
+    }
+
+    .programming-section img {
+      width: clamp(100px, 10vw, 140px);
+    }
+
+    .links-section {
+      position: absolute;
+      left: 14%;
+      bottom: 10%;
+    }
+
+    .links-label { top: -40px; left: 10px; }
+
+    .links-section img {
+      width: clamp(140px, 13vw, 180px);
+    }
+
+    .myself-section {
+      position: absolute;
+      left: 50%;
+      bottom: 10%;
+      transform: translateX(-50%);
+    }
+
+    .myself-label { top: -40px; left: 20px; }
+
+    .myself-section img {
+      width: clamp(200px, 20vw, 280px);
+    }
+
+    .hometowns-section {
+      position: absolute;
+      right: 10%;
+      bottom: 12%;
+    }
+
+    .hometowns-label { top: -40px; right: 30px; }
+
+    .hometowns-section img {
+      width: clamp(280px, 28vw, 380px);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <div class="nav-fixed">
+    <div class="navigation-links">
+      <a href="../about me/index.html" class="navigation-link-item active">About me</a>
+      <a href="../resume.html" class="navigation-link-item">Resume</a>
+      <a href="../works.html" class="navigation-link-item">Works</a>
+    </div>
+  </div>
+
+  <!-- ABOUT CONTENT -->
+  <div class="main-container">
+
+    <!-- background -->
+    <img class="background-image" src="../images/background.png" alt="Background">
+
+    <div class="about-content">
+
+      <div class="name-section">
+        <img src="images/Frame_6.png" alt="Mysha Mosharaf">
+      </div>
+
+      <div class="bio-text">
+        <img src="images/Frame_6.png" alt="Bio text">
+      </div>
+
+      <div class="tools-section">
+        <div class="tools-label">Tools</div>
+        <img src="images/Frame_10.png" alt="Tools">
+      </div>
+
+      <div class="programming-section">
+        <div class="programming-label">Programming<br>Languages</div>
+        <img src="images/Frame_11.png" alt="Programming">
+      </div>
+
+      <div class="links-section">
+        <div class="links-label">Links</div>
+        <img src="images/Group_13.png" alt="Links">
+      </div>
+
+      <div class="myself-section">
+        <div class="myself-label">Myself</div>
+        <img src="images/Group_3.png" alt="Myself">
+      </div>
+
+      <div class="hometowns-section">
+        <div class="hometowns-label">Hometowns</div>
+        <img src="images/Frame_12.png" alt="Hometowns">
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
