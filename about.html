@@ -6,334 +6,339 @@
   <title>About – Mysha Mosharaf</title>
 
   <style>
-   /* ===== ABOUT LAYOUT WRAPPER ===== */
+   /* =========================
+      PRESERVED STYLES (UNTOUCHED)
+      ========================= */
+   
+   html, body{
+      width: 100%;
+      height: 100vh;
+      overflow: hidden; /* Be careful: this disables scrolling if content gets too tall */
+      margin: 0;
+      padding: 0;
+   }
+
    .main-container{
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow-y: auto; /* Enables the ONE master scrollbar */
+      overflow-x: hidden;   }
 
+   /* NAV & NAME (Kept exactly as is) */
+   .nav-fixed{
+      position: fixed;
+      width: 75%;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      height: auto;
+      z-index: 999999;
+      pointer-events: auto;
+   }
 
-/* =========================
-   HEADER (NAV + NAME)
-   ========================= */
+   .navigation-links{
+      width: 100%;
+      height: 40px;
+      position: absolute;
+      left: 0;
+      top: 100px;
+      background: rgba(252, 252, 250, 0);
+      outline: 1px solid white;
+      outline-offset: -2px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(100px, 10vw, 376px);
+      pointer-events: auto;
+   }
 
-/* always on top */
-.nav-fixed{
-  position: fixed;
-  width: 75%;
-  left: 50%;
+   .navigation-link-item{
+      color: #FCFCFA;
+      font-size: clamp(10px, 2vw, 20px);
+      font-family: 'Archivo Black', sans-serif;
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 1.2;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
+   }
+   .navigation-link-item:hover, .navigation-link-item:focus{
+      color: #3A5A95;
+      transform: translateY(-2px);
+      opacity: 0.9;
+      outline: none;
+   }
+   .navigation-link-item.active{ color: #3A5A95; }
+
+   .name-fixed{
+      position: fixed;
+      left: 50%;
+      top: 20px;
+      transform: translateX(-50%);
+      z-index: 1000000;
+      pointer-events: auto;
+      cursor: pointer;
+      text-decoration: none;
+      transform-origin: center;
+   }
+   .name-fixed *{ pointer-events: none; }
+
+   .your-name-container{
+      position: relative;
+      width: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+   }
+   .your-name-text{
+      color: #fff;
+      font-size: clamp(36px, 3vw, 110px);
+      font-family: Cochin, serif;
+      font-weight: 500;
+      line-height: 0.9;
+      text-align: center;
+   }
+
+   .background-image {
+  position: fixed; /* Pins it to the screen */
   top: 0;
-  transform: translateX(-50%);
-  height: auto;
-  z-index: 999999;
-  pointer-events: auto;
-}
-
-/* keep your exact nav box placement (100px down) */
-.navigation-links{
-  width: 100%;
-  height: 40px;
-  position: absolute;
   left: 0;
-  top: 100px;
-  background: rgba(252, 252, 250, 0);
-  outline: 1px solid white;
-  outline-offset: -2px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: clamp(100px, 10vw, 376px);
-
-  pointer-events: auto;
-}
-
-.navigation-link-item{
-  color: #FCFCFA;
-  font-size: clamp(10px, 2vw, 20px);
-  font-family: 'Archivo Black', sans-serif;
-  font-weight: 900;
-  text-transform: uppercase;
-  line-height: 1.2;
-  text-align: center;
-
-  text-decoration: none;
-  cursor: pointer;
-  transition: color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
-}
-
-.navigation-link-item:hover,
-.navigation-link-item:focus{
-  color: #3A5A95;
-  transform: translateY(-2px);
-  opacity: 0.9;
-  outline: none;
-}
-
-.navigation-link-item.active{
-  color: #3A5A95;
-}
-
-/* if you still use overlay layers anywhere */
-.overlay-layer{ pointer-events: none; }
-.text-content-layer{ pointer-events: auto; }
-
-/* =========================
-   NAME (clickable overlay above nav)
-   ========================= */
-
-.name-fixed{
-  position: fixed;
-  left: 50%;
-  top: 20px;
-  transform: translateX(-50%);
-  z-index: 1000000;
-  pointer-events: auto;
-  cursor: pointer;
-  text-decoration: none;
-  transform-origin: center;
-}
-
-/* important: keep the link clickable, but prevent children from "stealing" clicks */
-.name-fixed *{
-  pointer-events: none;
-}
-
-.your-name-container{
-  position: relative;
-  width: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.your-name-text{
-  color: #fff;
-  font-size: clamp(36px, 3vw, 110px);
-  font-family: Cochin, serif;
-  font-weight: 500;
-  line-height: 0.9;
-  text-align: center;
-}
-
-
-/* background stays behind everything */
-.background-image{
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
   z-index: 1;
 }
 
-/* ensure about content is above background */
-.about-wrap{
-  position: relative;
-  z-index: 2;
-  padding: 180px 60px 40px 230px;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+   .about-wrap{
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      min-height: 100%; /* Allows expansion */
+      display: block;
+      box-sizing: border-box;
+      padding-left: 13%;
+      padding-right: 13%;
+      padding-top: 140px;
+      padding-bottom: 50px; /* Added bottom padding so items don't hit edge */
+   }
 
+   /* =========================
+      NEW BENTO GRID STYLES
+      ========================= */
 
-/* ===== TOP SECTION ===== */
-.about-top{
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 60px;
-}
+   .bento-grid {
+      display: grid;
+      width: 100%;
+      height: auto;
+      /* The 3-column layout: Left (Intro) is wider, others share space */
+      grid-template-columns: 2fr 1.2fr 1.2fr; 
+      /* Two rows: Top one adjusts to text, Bottom one fits images */
+      grid-template-rows: auto auto; 
+      gap: 30px; /* Space between the bento boxes */
+      
+      /* Define the Map of where things go */
+      grid-template-areas: 
+        "intro intro tech"
+        "links photo map";
+   }
 
-/* LEFT column */
-.about-left{
-  position: relative;
-  flex: 1;
-}
+   /* --- Grid Areas --- */
+   .area-intro { grid-area: intro; }
+   .area-tech  { 
+      grid-area: tech; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: flex-end; /* Aligns tools to the right */
+      gap: 20px; 
+   }
+   .area-links { grid-area: links; }
+   .area-photo { grid-area: photo; }
+   .area-map   { grid-area: map; }
 
-/* name.png - positioned absolutely so you can move it */
-.about-name-img{
-  position: absolute;
-  top: 0;
-  left: -50px;
-  width: 400px;
-  height: auto;
-  display: block;
-}
+   /* --- Generic Cell Styling --- */
+   .bento-item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Center content vertically */
+      align-items: center;     /* Center content horizontally */
+   }
+   
+   /* Special alignment for Intro text */
+   .bento-item.area-intro {
+      align-items: flex-start; /* Left align the text */
+      justify-content: flex-start;
+   }
 
-/* Paragraph - positioned absolutely so you can move it */
-.about-paragraph{
-  position: absolute;
-  top: 150px;
-  left: 30px;
-  max-width: 750px;
-  font-family: Cochin, serif;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: -0.5px;
-  color: #000;
-  margin: 0;
-}
+   /* --- Content Styling (Resets from absolute) --- */
+   
+   /* Images shrink to fit their container */
+   .bento-img {
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+   }
 
-/* Inline tag styles */
-.tag-outline{
-  color: transparent;
-  -webkit-text-stroke-width: 0.8px;
-  -webkit-text-stroke-color: #000;
-  -webkit-text-fill-color: transparent;
-  font-family: Cochin, serif;
-  font-size: 24px;
-  font-style: italic;
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: -0.5px;
-}
+   /* Specific tweaks for your images */
+   .name-img {
+      width: 50%; /* Adjust size of name graphic */
+      margin-bottom: 20px;
+      margin-left: 8%; /* Slight visual tweak to align with text */
+      margin-top: 5%;
+   }
 
-.tag-script{
-  color: #FFF;
-  font-family: "Nothing You Could Do", cursive;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1.3;
-  letter-spacing: -0.5px;
-}
+   .tools-img { 
+    width: 110%;
+    max-width: 450px; 
+    margin-right: 210%;
+    margin-top: 25%;
+  }
+   .prog-img  { 
+    width: 50%; 
+    max-width: 150px; 
+    margin-right: 20%;
+    margin-top: -40%;
+  }
+   
+   /* Bottom Cards */
+   .card-img {
+      width: 100%;
+      max-height: 300px; /* Prevents them from getting impossibly huge */
+   }
 
-.tag-uva{
-  color: #F67B00;
-  font-family: Cochin, serif;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: -0.5px;
-}
+      /* --- SHARED DEFAULTS (Do not delete) --- */
+    /* This ensures they all behave well on mobile */
+    .img-links, .img-photo, .img-map {
+      width: 100%;         /* Tries to fill the width of the grid box */
+      height: auto;        /* Keeps the image from squishing */
+      object-fit: contain;
+      display: block;
+    }
 
-/* RIGHT column: tools and programming stickers */
-.about-right{
-  position: relative;
-  flex: 0 0 auto;
-  width: 400px;
-  height: 400px;
-}
+    /* --- INDIVIDUAL CONTROLS --- */
 
-/* Tools image - positioned absolutely so you can move it */
-.tools-img{
-  position: absolute;
-  top: 25px;
-  right: 650px;
-  width: auto;
-  height: auto;
-  max-width: 350px;
-  display: block;
-}
+    /* 1. Phone Image Sizing */
+    .img-links {
+      max-width: 100%;     /* Reduce this % to make it narrower (e.g., 80%) */
+      max-height: 310px;   /* Change this px to limit the height */
+      padding-right: 15%;
+    }
 
-/* Programming languages image - positioned absolutely so you can move it */
-.programming-img{
-  position: absolute;
-  top: 0px;
-  right: 490px;
-  width: auto;
-  height: auto;
-  max-width: 140px;
-  display: block;
-}
+    /* 2. My Photo Sizing */
+    .img-photo {
+      max-width: 100%;     
+      max-height: 380px;   /* Currently set smaller than the phone */
+      padding-right: 15%;
+    }
 
-/* ===== BOTTOM CARDS ===== */
-.about-bottom{
-  position: relative;
-  display: flex;
-  gap: 20px;
-  align-items: flex-end;
-}
+    /* 3. Map Sizing */
+    .img-map {
+      max-width: 100%;     
+      max-height: 250px;   /* Currently set smallest */
+    }
 
-/* Card images - positioned absolutely so you can move them */
-.phone-card-img{
-  position: absolute;
-  bottom: 230px;
-  left: -35px;
-  width: auto;
-  height: auto;
-  max-height: 310px;
-  display: block;
-}
+   /* Text Styling */
+   .about-paragraph {
+      font-family: Cochin, serif;
+      font-size: clamp(16px, 1.5vw, 24px); /* Responsive font size */
+      font-style: normal;
+      font-weight: 500;
+      line-height: 1.3;
+      letter-spacing: -0.5px;
+      color: #000;
+      margin: 0;
+      max-width: 90%;
+      margin-bottom: 20px;
+      margin-left: 8%;
+   }
 
-.me-card-img{
-  position: absolute;
-  bottom: 230px;
-  left: 230px;
-  width: auto;
-  height: auto;
-  max-height: 280px;
-  display: block;
-}
+   /* Tag Styles */
+   .tag-outline {
+      color: transparent;
+      -webkit-text-stroke-width: 0.8px;
+      -webkit-text-stroke-color: #000;
+      -webkit-text-fill-color: transparent;
+      font-family: Cochin, serif;
+      font-style: italic;
+   }
+   .tag-uva {
+      color: #F67B00;
+      font-family: Cochin, serif;
+      font-weight: 700;
+   }
 
-.map-card-img{
-  position: absolute;
-  bottom: 230px;
-  left: 550px;
-  width: auto;
-  height: auto;
-  max-height: 250px;
-  display: block;
-}
+   /* =========================
+      RESPONSIVE (The List View)
+      ========================= */
+   @media (max-width: 900px) {
+      .bento-grid {
+         grid-template-columns: 1fr; /* Single column */
+         grid-template-rows: auto;   /* Auto height */
+         gap: 50px;
+         
+         /* Reorder for vertical scroll */
+         grid-template-areas: 
+            "intro"
+            "photo"
+            "links"
+            "map"
+            "tech";
+      }
 
-html, body{
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-}
+      .area-tech {
+         flex-direction: row; /* Put tools side-by-side on mobile */
+         justify-content: space-between;
+         align-items: center;
+      }
+      
+      .main-container {
+         overflow-y: auto; /* Enable scrolling on phone */
+      }
+   }
 
+   /* =========================================
+   DESKTOP ONLY ADJUSTMENTS (Width > 900px)
+   ========================================= */
+  @media (min-width: 901px) {
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 1100px){
-  .about-wrap{
-    padding: 160px 40px 40px 40px;
+  /* 1. This targets all 3 bottom boxes */
+  .area-links, .area-photo, .area-map {
+    /* Stop centering them vertically, force them to the top */
+    justify-content: flex-start; 
   }
 
-  .about-top{
-    flex-direction: column;
-    gap: 28px;
+  /* 2. Nudge specific images upwards individually */
+
+  /* Phone (Links) */
+  .img-links {
+    margin-top: -15px;  /* Pulls it up 20px */
   }
 
-  .about-right{
-    flex-direction: row;
-    align-items: flex-start;
+  /* My Photo */
+  .img-photo {
+    margin-right: 80%;
   }
 
-  .about-bottom{
-    grid-template-columns: 1fr;
+  /* Map */
+  .img-map {
+    margin-top: 20px; 
+    margin-right: 70%;
   }
 
-  .about-name-img{
-    width: min(593px, 92vw);
-    height: auto;
+  /* OPTIONAL: Reduce the gap between the two main rows */
+  .bento-grid {
+    row-gap: 10px; /* Was 30px, this pulls the whole bottom row up */
   }
-
-  .about-paragraph{
-    font-size: clamp(18px, 4vw, 28px);
-    line-height: 1.3;
   }
-}
-
   </style>
 </head>
 
 <body>
 
-<!-- ===== ABOUT CONTENT (ONLY) ===== -->
-
-  <!-- ✅ STICKY NAV (always visible) -->
   <div class="nav-fixed" id="navFixed">
     <div class="navigation-links">
       <a href="about.html" class="navigation-link-item active">About me</a>
@@ -342,53 +347,49 @@ html, body{
     </div>
   </div>
 
-  <!-- ✅ STICKY NAME (animates on scroll) -->
-<a href="index.html" class="name-fixed" id="nameFixed">
-  <div class="your-name-container">
-    <div class="your-name-text">Mysha</div>
-    <div class="your-name-text">Mosharaf</div>
-  </div>
-</a>
-
-
-<div class="main-container">
-  <!-- Background image -->
-  <img class="background-image" src="images/background.png" alt="Background">
-
-  <!-- About contents -->
-  <div class="about-wrap">
-
-  <!-- TOP: Name + paragraph + right-side stickers -->
-  <section class="about-top">
-    <div class="about-left">
-      <img class="about-name-img" src="images/name.png" alt="Mysha Mosharaf">
-
-      <p class="about-paragraph">
-        I'm a <span class="tag-outline">computer science</span> and
-        <span class="tag-outline">studio art</span> double major at
-        <span class="tag-uva">UVA</span> working in UI/UX design, programming,
-        and graphic design. I'm interested in how design and code intersect
-        to create clear, intuitive digital experiences.
-      </p>
+  <a href="index.html" class="name-fixed" id="nameFixed">
+    <div class="your-name-container">
+      <div class="your-name-text">Mysha</div>
+      <div class="your-name-text">Mosharaf</div>
     </div>
+  </a>
 
-    <div class="about-right">
-      <!-- Tools PNG -->
-      <img class="tools-img" src="images/tools.png" alt="Tools">
+  <div class="main-container">
+    <img class="background-image" src="images/background.png" alt="Background">
 
-      <!-- Programming Languages PNG -->
-      <img class="programming-img" src="images/programminglanguages.png" alt="Programming Languages">
-    </div>
-  </section>
+    <div class="about-wrap">
 
-  <!-- BOTTOM: 3 card images -->
-  <section class="about-bottom">
-    <img class="phone-card-img" src="images/phone.png" alt="Links card">
-    <img class="me-card-img" src="images/me.png" alt="Myself card">
-    <img class="map-card-img" src="images/map.png" alt="Hometowns card">
-  </section>
-</div>
+      <div class="bento-grid">
+        
+        <div class="bento-item area-intro">
+          <img class="bento-img name-img" src="images/name.png" alt="Mysha Mosharaf">
+          <p class="about-paragraph">
+            I'm a <span class="tag-outline">computer science</span> and
+            <span class="tag-outline">studio art</span> double major at
+            <span class="tag-uva">UVA</span> working in UI/UX design, programming,
+            and graphic design. I'm interested in how design and code intersect
+            to create clear, intuitive digital experiences.
+          </p>
+        </div>
 
+        <div class="bento-item area-tech">
+          <img class="bento-img tools-img" src="images/tools.png" alt="Tools">
+          <img class="bento-img prog-img" src="images/programminglanguages.png" alt="Programming Languages">
+        </div>
 
-</body>
+        <div class="bento-item area-links">
+          <img class="bento-img img-links" src="images/phone.png" alt="Links card">
+        </div>
+        
+        <div class="bento-item area-photo">
+          <img class="bento-img img-photo" src="images/me.png" alt="Myself card">
+        </div>
+        
+        <div class="bento-item area-map">
+          <img class="bento-img img-map" src="images/map.png" alt="Hometowns card">
+        </div>
+
+      </div> </div> </div> </body>
 </html>
+
+```
