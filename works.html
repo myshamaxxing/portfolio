@@ -58,7 +58,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: clamp(100px, 10vw, 376px);
+  gap: clamp(20px, 10vw, 376px);
+  white-space: nowrap;
 
   pointer-events: auto;
 }
@@ -131,9 +132,11 @@
 .works-wrap{
   position: absolute;
   z-index: 2;
-  padding: 180px 40px 60px 0px;
+  top: 150px; /* start below the fixed name + nav so cards don't scroll under them */
+  padding: 20px 40px 60px 40px;
+  box-sizing: border-box; /* keep padding inside 100% so cards don't overflow */
   width: 100%;
-  height: 100%;
+  height: calc(100% - 150px);
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -165,7 +168,21 @@
   max-width: 900px;
   margin: 0 auto;
   padding-bottom: 40px;
-  justify-items: center;
+}
+
+/* Section headings span both columns */
+.works-section-title{
+  grid-column: 1 / -1;
+  font-family: "Nothing You Could Do", cursive;
+  font-size: 28px;
+  font-weight: 400;
+  color: #fff;
+  margin: 20px 0 -10px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+}
+
+.works-section-title:first-child{
+  margin-top: 0;
 }
 
 /* Work card */
@@ -179,8 +196,8 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  box-sizing: border-box;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
   border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
@@ -188,6 +205,16 @@
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   border-color: #3A5A95;
+}
+
+/* Role / date line above the title */
+.work-meta{
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #3A5A95;
+  margin: 0;
 }
 
 /* Work card title */
@@ -229,19 +256,49 @@
   white-space: nowrap;
 }
 
-/* Link icon */
-.work-link-icon{
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 20px;
-  height: 20px;
-  opacity: 0.6;
-  transition: opacity 0.3s ease;
+/* Card links (live site, code, Devpost) */
+.work-links{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 4px;
 }
 
-.work-card:hover .work-link-icon{
-  opacity: 1;
+.work-links a{
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #3A5A95;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+.work-links a:hover,
+.work-links a:focus-visible{
+  color: #000;
+}
+
+/* Contact row at the bottom */
+.works-contact{
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 28px;
+  margin-top: 10px;
+}
+
+.works-contact a{
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+}
+
+.works-contact a:hover,
+.works-contact a:focus-visible{
+  color: #3A5A95;
 }
 
 html, body{
@@ -255,7 +312,7 @@ html, body{
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1100px){
   .works-wrap{
-    padding: 160px 40px 40px 40px;
+    padding: 20px 20px 40px 20px;
   }
 
   .works-grid{
@@ -294,60 +351,119 @@ html, body{
     <div class="works-wrap">
       <div class="works-grid">
 
-        <!-- Work Card 1 -->
-        <a href="https://www.canva.com/design/DAGwvqbE5WI/6kezEigHnN7pvdE90NJH9w/view?utm_content=DAGwvqbE5WI&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h79a7b8286c" target="_blank" class="work-card">
-          <svg class="work-link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-          </svg>
-          <h3 class="work-title">Digital Animation Portfolio</h3>
-          <p class="work-description">Motion design portfolio showcasing advanced animation skills with Adobe After Effects.</p>
-          <div class="work-tags">
-            <span class="work-tag">After Effects</span>
-            <span class="work-tag">Animation</span>
-            <span class="work-tag">Design</span>
-          </div>
-        </a>
+        <h2 class="works-section-title">Projects</h2>
 
-        <!-- Work Card 2 -->
-        <a href="https://hennahut.us" target="_blank" class="work-card">
-          <svg class="work-link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-          </svg>
-          <h3 class="work-title">Henna Hut Website</h3>
-          <p class="work-description">Responsive website for my henna business. Designed with Figma and Adobe Illustrator, developed with HTML5/CSS3, and integrated Formspree for bookings.</p>
+        <article class="work-card">
+          <p class="work-meta">AR app &middot; May &ndash; Jun 2026</p>
+          <h3 class="work-title">HeraKlue</h3>
+          <p class="work-description">AR scavenger hunt that blends Greek mythology with location-based AR, built during a UVA study abroad program in Heraklion, Crete. Ran on-site usability tests to tune the interaction flow and pacing, then pitched and demoed it at Bizrupt.</p>
+          <div class="work-tags">
+            <span class="work-tag">Swift</span>
+            <span class="work-tag">ARKit</span>
+            <span class="work-tag">RealityKit</span>
+            <span class="work-tag">Usability testing</span>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <p class="work-meta">Hackathon winner &middot; Sep 2025</p>
+          <h3 class="work-title">Unphased</h3>
+          <p class="work-description">Cycle-synced productivity app that won &ldquo;Best Use of Auth0&rdquo; for token-based authentication protecting sensitive health data. Designed a &ldquo;bulletin board&rdquo; interface in Figma to destigmatize menstruation tracking, then built it as React Native components.</p>
+          <div class="work-tags">
+            <span class="work-tag">React Native</span>
+            <span class="work-tag">Node.js</span>
+            <span class="work-tag">Auth0</span>
+            <span class="work-tag">Figma</span>
+          </div>
+          <div class="work-links">
+            <a href="https://devpost.com/software/unphased" target="_blank" rel="noopener">Devpost &#8599;</a>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <p class="work-meta">Mobile app &middot; Nov 2025 &ndash; Present</p>
+          <h3 class="work-title">Hoos in Love</h3>
+          <p class="work-description">UVA-themed dating app where profiles are customizable &ldquo;lawn doors&rdquo; with personality stickers, involvement tags, and photos. Co-designed it in Figma and built the shared React Native component library the team develops with.</p>
+          <div class="work-tags">
+            <span class="work-tag">React Native</span>
+            <span class="work-tag">Figma</span>
+            <span class="work-tag">Design system</span>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <p class="work-meta">Live website &middot; Jul 2025</p>
+          <h3 class="work-title">Henna Hut</h3>
+          <p class="work-description">Booking site for my henna business, designed and coded from scratch. Mobile-first layout with quick access to a booking questionnaire (bridal, home studio, party henna) that streamlines client intake.</p>
           <div class="work-tags">
             <span class="work-tag">HTML/CSS</span>
             <span class="work-tag">Figma</span>
-            <span class="work-tag">Design</span>
+            <span class="work-tag">Illustrator</span>
           </div>
-        </a>
-
-        <!-- Work Card 3 -->
-        <a href="https://drive.google.com/drive/folders/1cz4bMN_kMf78CISDHl_681tPiob0XXt3?usp=sharing" target="_blank" class="work-card">
-          <svg class="work-link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-          </svg>
-          <h3 class="work-title">Multimedia Work Collection</h3>
-          <p class="work-description">A google drive link of multimedia design work including digital art, illustrations, and creative projects.</p>
-          <div class="work-tags">
-            <span class="work-tag">Digital Art</span>
-            <span class="work-tag">Illustration</span>
-            <span class="work-tag">Multimedia</span>
+          <div class="work-links">
+            <a href="https://hennahut.us" target="_blank" rel="noopener">Live site &#8599;</a>
+            <a href="https://github.com/myshamaxxing/hennahutwebsite" target="_blank" rel="noopener">Code &#8599;</a>
           </div>
-        </a>
+        </article>
 
-         <a href="https://devpost.com/software/unphased" target="_blank" class="work-card">
-          <svg class="work-link-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-          </svg>
-          <h3 class="work-title">Unphased</h3>
-          <p class="work-description">Hackathon submission that won "Best Use of Auth0" that helps erase the stigma surrounding the menstrual cycle.</p>
+        <h2 class="works-section-title">Work</h2>
+
+        <article class="work-card">
+          <p class="work-meta">Global Business Intern &middot; Summer 2026</p>
+          <h3 class="work-title">WR Systems: B2B Storefront &amp; Customer Portal</h3>
+          <p class="work-description">Built a B2B ecommerce storefront on Odoo with custom JavaScript against its JSON-RPC API for tiered pricing and checkout. Designed a self-service customer portal and ran a UX audit with buyer personas and journey maps for two enterprise segments.</p>
           <div class="work-tags">
-            <span class="work-tag">React</span>
-            <span class="work-tag">node.js</span>
+            <span class="work-tag">JavaScript</span>
+            <span class="work-tag">Odoo</span>
+            <span class="work-tag">UX research</span>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <p class="work-meta">Web Design Developer &middot; Dec 2025 &ndash; Present</p>
+          <h3 class="work-title">UVA Student Financial Services Intranet</h3>
+          <p class="work-description">Designed the intranet homepage and 6+ pages in Figma, turning dense policy content into scannable layouts. Built reusable Drupal components within UVA branding and reworked navigation after two rounds of user testing with staff.</p>
+          <div class="work-tags">
             <span class="work-tag">Figma</span>
+            <span class="work-tag">Drupal</span>
+            <span class="work-tag">User testing</span>
           </div>
-        </a>
+        </article>
+
+        <h2 class="works-section-title">Art &amp; Motion</h2>
+
+        <article class="work-card">
+          <p class="work-meta">Motion design</p>
+          <h3 class="work-title">Digital Animation</h3>
+          <p class="work-description">Motion design work created in Adobe After Effects.</p>
+          <div class="work-tags">
+            <span class="work-tag">After Effects</span>
+            <span class="work-tag">Animation</span>
+          </div>
+          <div class="work-links">
+            <a href="https://www.canva.com/design/DAGwvqbE5WI/6kezEigHnN7pvdE90NJH9w/view?utm_content=DAGwvqbE5WI&amp;utm_campaign=designshare&amp;utm_medium=link2&amp;utm_source=uniquelinks&amp;utlId=h79a7b8286c" target="_blank" rel="noopener">View reel &#8599;</a>
+          </div>
+        </article>
+
+        <article class="work-card">
+          <p class="work-meta">Illustration &middot; Iris Magazine</p>
+          <h3 class="work-title">Illustration &amp; Multimedia</h3>
+          <p class="work-description">Editorial illustration for Iris Magazine (3 hand-drawn pieces per issue) plus digital art and multimedia projects.</p>
+          <div class="work-tags">
+            <span class="work-tag">Procreate</span>
+            <span class="work-tag">Photoshop</span>
+            <span class="work-tag">Illustration</span>
+          </div>
+          <div class="work-links">
+            <a href="https://drive.google.com/drive/folders/1cz4bMN_kMf78CISDHl_681tPiob0XXt3?usp=sharing" target="_blank" rel="noopener">View collection &#8599;</a>
+          </div>
+        </article>
+
+        <nav class="works-contact" aria-label="Contact">
+          <a href="https://github.com/myshamaxxing" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/myshamo/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:hmb5ug@virginia.edu">Email</a>
+        </nav>
 
       </div>
     </div>
