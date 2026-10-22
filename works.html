@@ -163,21 +163,21 @@
 /* Works grid */
 .works-grid{
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-  max-width: 900px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px 32px;
+  max-width: 960px;
   margin: 0 auto;
   padding-bottom: 40px;
 }
 
-/* Section headings span both columns */
+/* Section headings span every column */
 .works-section-title{
   grid-column: 1 / -1;
   font-family: "Nothing You Could Do", cursive;
   font-size: 28px;
   font-weight: 400;
   color: #fff;
-  margin: 20px 0 -10px;
+  margin: 20px 0 -16px;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
 }
 
@@ -185,97 +185,167 @@
   margin-top: 0;
 }
 
-/* Work card */
+/* Work card: square image tile with the title underneath */
 .work-card{
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 24px;
-  position: relative;
-  text-decoration: none;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  box-sizing: border-box;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 2px solid rgba(255, 255, 255, 0.5);
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: inherit;
 }
 
-.work-card:hover{
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  border-color: #3A5A95;
+.work-thumb{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 2px solid #3A5A95;
+  box-shadow: 6px 6px 0 #3A5A95; /* offset "sticker" shadow */
+  background: #F4EFE6;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-/* Role / date line above the title */
+.work-thumb img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* No screenshot yet: big serif initial on cream */
+.work-thumb--placeholder::before{
+  content: attr(data-initial);
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Cochin, serif;
+  font-size: 120px;
+  color: transparent;
+  -webkit-text-stroke: 1.5px #3A5A95;
+}
+
+/* Arrow in the corner on cards that link somewhere */
+.work-arrow{
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  z-index: 2;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  color: #3A5A95;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Date + short description, revealed on hover */
+.work-overlay{
+  position: absolute;
+  inset: 0;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  z-index: 1;
+  background: rgba(30, 45, 80, 0.85);
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
 .work-meta{
   font-family: Arial, sans-serif;
   font-size: 12px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  color: #3A5A95;
-  margin: 0;
-}
-
-/* Work card title */
-.work-title{
-  font-family: Cochin, serif;
-  font-size: 24px;
   font-weight: 700;
-  color: #000;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #C9D8F5;
   margin: 0;
-  line-height: 1.2;
 }
 
-/* Work card description */
 .work-description{
-  font-family: Cochin, serif;
-  font-size: 16px;
-  font-weight: 400;
-  color: #333;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 19px;
+  line-height: 1.25;
   margin: 0;
-  line-height: 1.4;
-  flex: 1;
 }
 
-/* Work card tags */
-.work-tags{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 8px;
+.work-card:hover .work-overlay,
+.work-card:focus-visible .work-overlay{
+  opacity: 1;
 }
 
-.work-tag{
-  font-family: "Nothing You Could Do", cursive;
-  font-size: 14px;
-  color: #fff;
-  background: #3A5A95;
-  padding: 4px 12px;
-  border-radius: 12px;
-  white-space: nowrap;
+a.work-card:hover .work-thumb,
+a.work-card:focus-visible .work-thumb{
+  transform: translate(-3px, -3px);
+  box-shadow: 9px 9px 0 #3A5A95;
 }
 
-/* Card links (live site, code, Devpost) */
+a.work-card:focus-visible{
+  outline: none;
+}
+
+a.work-card:focus-visible .work-thumb{
+  outline: 3px solid #fff;
+  outline-offset: 4px;
+}
+
+/* Title under the tile */
+.work-title{
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #1E2D50;
+  text-align: center;
+  margin: 0;
+  line-height: 1.15;
+}
+
+/* Extra links under the title (e.g. code) */
 .work-links{
   display: flex;
-  flex-wrap: wrap;
   gap: 16px;
-  margin-top: 4px;
+  margin-top: -6px;
 }
 
 .work-links a{
   font-family: Arial, sans-serif;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
-  color: #3A5A95;
+  color: #1E2D50;
   text-decoration: none;
   border-bottom: 1px solid currentColor;
 }
 
 .work-links a:hover,
 .work-links a:focus-visible{
-  color: #000;
+  color: #fff;
+}
+
+/* Touch screens have no hover: show date + description under the title */
+.work-touch-info{
+  display: none;
+}
+
+@media (hover: none){
+  .work-touch-info{
+    display: block;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.35;
+    color: #1E2D50;
+    text-align: center;
+    margin: -6px 0 0;
+  }
 }
 
 /* Contact row at the bottom */
@@ -316,8 +386,15 @@ html, body{
   }
 
   .works-grid{
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 24px;
+  }
+}
+
+@media (max-width: 520px){
+  .works-grid{
     grid-template-columns: 1fr;
-    gap: 20px;
+    max-width: 340px;
   }
 }
 
@@ -353,111 +430,102 @@ html, body{
 
         <h2 class="works-section-title">Projects</h2>
 
-        <article class="work-card">
-          <p class="work-meta">AR app &middot; May &ndash; Jun 2026</p>
-          <h3 class="work-title">HeraKlue</h3>
-          <p class="work-description">AR scavenger hunt that blends Greek mythology with location-based AR, built during a UVA study abroad program in Heraklion, Crete. Ran on-site usability tests to tune the interaction flow and pacing, then pitched and demoed it at Bizrupt.</p>
-          <div class="work-tags">
-            <span class="work-tag">Swift</span>
-            <span class="work-tag">ARKit</span>
-            <span class="work-tag">RealityKit</span>
-            <span class="work-tag">Usability testing</span>
+          <div class="work-card">
+            <div class="work-thumb work-thumb--placeholder" data-initial="H">
+              <div class="work-overlay">
+                <p class="work-meta">May &ndash; Jun 2026</p>
+                <p class="work-description">AR scavenger hunt through Greek myth, built in Crete.</p>
+              </div>
+            </div>
+            <h3 class="work-title">HeraKlue</h3>
+            <p class="work-touch-info">May &ndash; Jun 2026 &middot; AR scavenger hunt through Greek myth, built in Crete.</p>
           </div>
-        </article>
 
-        <article class="work-card">
-          <p class="work-meta">Hackathon winner &middot; Sep 2025</p>
-          <h3 class="work-title">Unphased</h3>
-          <p class="work-description">Cycle-synced productivity app that won &ldquo;Best Use of Auth0&rdquo; for token-based authentication protecting sensitive health data. Designed a &ldquo;bulletin board&rdquo; interface in Figma to destigmatize menstruation tracking, then built it as React Native components.</p>
-          <div class="work-tags">
-            <span class="work-tag">React Native</span>
-            <span class="work-tag">Node.js</span>
-            <span class="work-tag">Auth0</span>
-            <span class="work-tag">Figma</span>
-          </div>
-          <div class="work-links">
-            <a href="https://devpost.com/software/unphased" target="_blank" rel="noopener">Devpost &#8599;</a>
-          </div>
-        </article>
+          <a href="https://devpost.com/software/unphased" target="_blank" rel="noopener" class="work-card">
+            <div class="work-thumb work-thumb--placeholder" data-initial="U">
+              <span class="work-arrow" aria-hidden="true">&#8599;</span>
+              <div class="work-overlay">
+                <p class="work-meta">Sep 2025 &middot; Hackathon winner</p>
+                <p class="work-description">Cycle-synced productivity app. Won Best Use of Auth0.</p>
+              </div>
+            </div>
+            <h3 class="work-title">Unphased</h3>
+            <p class="work-touch-info">Sep 2025 &middot; Hackathon winner &middot; Cycle-synced productivity app. Won Best Use of Auth0.</p>
+          </a>
 
-        <article class="work-card">
-          <p class="work-meta">Mobile app &middot; Nov 2025 &ndash; Present</p>
-          <h3 class="work-title">Hoos in Love</h3>
-          <p class="work-description">UVA-themed dating app where profiles are customizable &ldquo;lawn doors&rdquo; with personality stickers, involvement tags, and photos. Co-designed it in Figma and built the shared React Native component library the team develops with.</p>
-          <div class="work-tags">
-            <span class="work-tag">React Native</span>
-            <span class="work-tag">Figma</span>
-            <span class="work-tag">Design system</span>
+          <div class="work-card">
+            <div class="work-thumb work-thumb--placeholder" data-initial="L">
+              <div class="work-overlay">
+                <p class="work-meta">Nov 2025 &ndash; Present</p>
+                <p class="work-description">UVA dating app with &ldquo;lawn door&rdquo; profiles.</p>
+              </div>
+            </div>
+            <h3 class="work-title">Hoos in Love</h3>
+            <p class="work-touch-info">Nov 2025 &ndash; Present &middot; UVA dating app with &ldquo;lawn door&rdquo; profiles.</p>
           </div>
-        </article>
 
-        <article class="work-card">
-          <p class="work-meta">Live website &middot; Jul 2025</p>
-          <h3 class="work-title">Henna Hut</h3>
-          <p class="work-description">Booking site for my henna business, designed and coded from scratch. Mobile-first layout with quick access to a booking questionnaire (bridal, home studio, party henna) that streamlines client intake.</p>
-          <div class="work-tags">
-            <span class="work-tag">HTML/CSS</span>
-            <span class="work-tag">Figma</span>
-            <span class="work-tag">Illustrator</span>
-          </div>
-          <div class="work-links">
-            <a href="https://hennahut.us" target="_blank" rel="noopener">Live site &#8599;</a>
-            <a href="https://github.com/myshamaxxing/hennahutwebsite" target="_blank" rel="noopener">Code &#8599;</a>
-          </div>
-        </article>
+          <a href="https://myshamaxxing.github.io/hennahutwebsite/" target="_blank" rel="noopener" class="work-card">
+            <div class="work-thumb">
+              <img src="images/works/hennahut.jpg" alt="" loading="lazy">
+              <span class="work-arrow" aria-hidden="true">&#8599;</span>
+              <div class="work-overlay">
+                <p class="work-meta">Jul 2025</p>
+                <p class="work-description">Mobile-first booking site for my henna business.</p>
+              </div>
+            </div>
+            <h3 class="work-title">Henna Hut</h3>
+            <p class="work-touch-info">Jul 2025 &middot; Mobile-first booking site for my henna business.</p>
+          </a>
 
         <h2 class="works-section-title">Work</h2>
 
-        <article class="work-card">
-          <p class="work-meta">Global Business Intern &middot; Summer 2026</p>
-          <h3 class="work-title">WR Systems: B2B Storefront &amp; Customer Portal</h3>
-          <p class="work-description">Built a B2B ecommerce storefront on Odoo with custom JavaScript against its JSON-RPC API for tiered pricing and checkout. Designed a self-service customer portal and ran a UX audit with buyer personas and journey maps for two enterprise segments.</p>
-          <div class="work-tags">
-            <span class="work-tag">JavaScript</span>
-            <span class="work-tag">Odoo</span>
-            <span class="work-tag">UX research</span>
+          <div class="work-card">
+            <div class="work-thumb work-thumb--placeholder" data-initial="W">
+              <div class="work-overlay">
+                <p class="work-meta">Summer 2026 &middot; Intern</p>
+                <p class="work-description">B2B storefront and customer portal on Odoo.</p>
+              </div>
+            </div>
+            <h3 class="work-title">WR Systems</h3>
+            <p class="work-touch-info">Summer 2026 &middot; Intern &middot; B2B storefront and customer portal on Odoo.</p>
           </div>
-        </article>
 
-        <article class="work-card">
-          <p class="work-meta">Web Design Developer &middot; Dec 2025 &ndash; Present</p>
-          <h3 class="work-title">UVA Student Financial Services Intranet</h3>
-          <p class="work-description">Designed the intranet homepage and 6+ pages in Figma, turning dense policy content into scannable layouts. Built reusable Drupal components within UVA branding and reworked navigation after two rounds of user testing with staff.</p>
-          <div class="work-tags">
-            <span class="work-tag">Figma</span>
-            <span class="work-tag">Drupal</span>
-            <span class="work-tag">User testing</span>
+          <div class="work-card">
+            <div class="work-thumb work-thumb--placeholder" data-initial="S">
+              <div class="work-overlay">
+                <p class="work-meta">Dec 2025 &ndash; Present</p>
+                <p class="work-description">UVA staff intranet designed in Figma, built in Drupal.</p>
+              </div>
+            </div>
+            <h3 class="work-title">SFS Intranet</h3>
+            <p class="work-touch-info">Dec 2025 &ndash; Present &middot; UVA staff intranet designed in Figma, built in Drupal.</p>
           </div>
-        </article>
 
         <h2 class="works-section-title">Art &amp; Motion</h2>
 
-        <article class="work-card">
-          <p class="work-meta">Motion design</p>
-          <h3 class="work-title">Digital Animation</h3>
-          <p class="work-description">Motion design work created in Adobe After Effects.</p>
-          <div class="work-tags">
-            <span class="work-tag">After Effects</span>
-            <span class="work-tag">Animation</span>
-          </div>
-          <div class="work-links">
-            <a href="https://www.canva.com/design/DAGwvqbE5WI/6kezEigHnN7pvdE90NJH9w/view?utm_content=DAGwvqbE5WI&amp;utm_campaign=designshare&amp;utm_medium=link2&amp;utm_source=uniquelinks&amp;utlId=h79a7b8286c" target="_blank" rel="noopener">View reel &#8599;</a>
-          </div>
-        </article>
+          <a href="https://www.canva.com/design/DAGwvqbE5WI/6kezEigHnN7pvdE90NJH9w/view?utm_content=DAGwvqbE5WI&amp;utm_campaign=designshare&amp;utm_medium=link2&amp;utm_source=uniquelinks&amp;utlId=h79a7b8286c" target="_blank" rel="noopener" class="work-card">
+            <div class="work-thumb work-thumb--placeholder" data-initial="A">
+              <span class="work-arrow" aria-hidden="true">&#8599;</span>
+              <div class="work-overlay">
+                <p class="work-meta">Motion design</p>
+                <p class="work-description">Animation work made in After Effects.</p>
+              </div>
+            </div>
+            <h3 class="work-title">Digital Animation</h3>
+            <p class="work-touch-info">Motion design &middot; Animation work made in After Effects.</p>
+          </a>
 
-        <article class="work-card">
-          <p class="work-meta">Illustration &middot; Iris Magazine</p>
-          <h3 class="work-title">Illustration &amp; Multimedia</h3>
-          <p class="work-description">Editorial illustration for Iris Magazine (3 hand-drawn pieces per issue) plus digital art and multimedia projects.</p>
-          <div class="work-tags">
-            <span class="work-tag">Procreate</span>
-            <span class="work-tag">Photoshop</span>
-            <span class="work-tag">Illustration</span>
-          </div>
-          <div class="work-links">
-            <a href="https://drive.google.com/drive/folders/1cz4bMN_kMf78CISDHl_681tPiob0XXt3?usp=sharing" target="_blank" rel="noopener">View collection &#8599;</a>
-          </div>
-        </article>
+          <a href="https://drive.google.com/drive/folders/1cz4bMN_kMf78CISDHl_681tPiob0XXt3?usp=sharing" target="_blank" rel="noopener" class="work-card">
+            <div class="work-thumb work-thumb--placeholder" data-initial="I">
+              <span class="work-arrow" aria-hidden="true">&#8599;</span>
+              <div class="work-overlay">
+                <p class="work-meta">Iris Magazine &amp; more</p>
+                <p class="work-description">Editorial art and multimedia projects.</p>
+              </div>
+            </div>
+            <h3 class="work-title">Illustration</h3>
+            <p class="work-touch-info">Iris Magazine &amp; more &middot; Editorial art and multimedia projects.</p>
+          </a>
 
         <nav class="works-contact" aria-label="Contact">
           <a href="https://github.com/myshamaxxing" target="_blank" rel="noopener">GitHub</a>
