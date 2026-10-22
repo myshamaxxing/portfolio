@@ -170,19 +170,49 @@
   padding-bottom: 40px;
 }
 
-/* Section headings span every column */
-.works-section-title{
-  grid-column: 1 / -1;
-  font-family: "Nothing You Could Do", cursive;
-  font-size: 28px;
-  font-weight: 400;
-  color: #fff;
-  margin: 20px 0 -16px;
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.25);
+/* Category filter: one outlined pill split into three */
+.works-filter{
+  display: flex;
+  max-width: 560px;
+  margin: 0 auto 36px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  overflow: hidden;
 }
 
-.works-section-title:first-child{
-  margin-top: 0;
+.works-filter-btn{
+  flex: 1;
+  padding: 12px 8px;
+  background: transparent;
+  border: none;
+  border-left: 2px solid #fff;
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 18px;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.works-filter-btn:first-child{
+  border-left: none;
+}
+
+.works-filter-btn:hover{
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.works-filter-btn[aria-pressed="true"]{
+  background: rgba(58, 90, 149, 0.85);
+}
+
+.works-filter-btn:focus-visible{
+  outline: 3px solid #fff;
+  outline-offset: -6px;
+}
+
+.work-card[hidden]{
+  display: none;
 }
 
 /* Work card: square image tile with the title underneath */
@@ -304,31 +334,11 @@ a.work-card:focus-visible .work-thumb{
   font-family: 'Archivo Black', sans-serif;
   font-size: 20px;
   font-weight: 400;
-  color: #1E2D50;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
   text-align: center;
   margin: 0;
   line-height: 1.15;
-}
-
-/* Extra links under the title (e.g. code) */
-.work-links{
-  display: flex;
-  gap: 16px;
-  margin-top: -6px;
-}
-
-.work-links a{
-  font-family: Arial, sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  color: #1E2D50;
-  text-decoration: none;
-  border-bottom: 1px solid currentColor;
-}
-
-.work-links a:hover,
-.work-links a:focus-visible{
-  color: #fff;
 }
 
 /* Touch screens have no hover: show date + description under the title */
@@ -342,7 +352,8 @@ a.work-card:focus-visible .work-thumb{
     font-family: Arial, sans-serif;
     font-size: 13px;
     line-height: 1.35;
-    color: #1E2D50;
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
     text-align: center;
     margin: -6px 0 0;
   }
@@ -426,11 +437,15 @@ html, body{
 
     <!-- Works content -->
     <div class="works-wrap">
+      <div class="works-filter" role="group" aria-label="Show">
+        <button type="button" class="works-filter-btn" data-filter="work" aria-pressed="true">Work</button>
+        <button type="button" class="works-filter-btn" data-filter="projects" aria-pressed="false">Projects</button>
+        <button type="button" class="works-filter-btn" data-filter="art" aria-pressed="false">Art</button>
+      </div>
+
       <div class="works-grid">
 
-        <h2 class="works-section-title">Projects</h2>
-
-          <div class="work-card">
+          <div class="work-card" data-category="projects">
             <div class="work-thumb work-thumb--placeholder" data-initial="H">
               <div class="work-overlay">
                 <p class="work-meta">May &ndash; Jun 2026</p>
@@ -441,7 +456,7 @@ html, body{
             <p class="work-touch-info">May &ndash; Jun 2026 &middot; AR scavenger hunt through Greek myth, built in Crete.</p>
           </div>
 
-          <a href="https://devpost.com/software/unphased" target="_blank" rel="noopener" class="work-card">
+          <a href="https://devpost.com/software/unphased" target="_blank" rel="noopener" class="work-card" data-category="projects">
             <div class="work-thumb work-thumb--placeholder" data-initial="U">
               <span class="work-arrow" aria-hidden="true">&#8599;</span>
               <div class="work-overlay">
@@ -453,18 +468,20 @@ html, body{
             <p class="work-touch-info">Sep 2025 &middot; Hackathon winner &middot; Cycle-synced productivity app. Won Best Use of Auth0.</p>
           </a>
 
-          <div class="work-card">
-            <div class="work-thumb work-thumb--placeholder" data-initial="L">
+          <a href="hoosynced.html" class="work-card" data-category="projects">
+            <div class="work-thumb">
+              <img src="images/works/hoosynced.jpg" alt="" loading="lazy">
+              <span class="work-arrow" aria-hidden="true">&#8599;</span>
               <div class="work-overlay">
-                <p class="work-meta">Nov 2025 &ndash; Present</p>
-                <p class="work-description">UVA dating app with &ldquo;lawn door&rdquo; profiles.</p>
+                <p class="work-meta">Spring 2026 &middot; UX research</p>
+                <p class="work-description">Redesigning club discovery at UVA, from field research to tested prototype.</p>
               </div>
             </div>
-            <h3 class="work-title">Hoos in Love</h3>
-            <p class="work-touch-info">Nov 2025 &ndash; Present &middot; UVA dating app with &ldquo;lawn door&rdquo; profiles.</p>
-          </div>
+            <h3 class="work-title">HooSynced</h3>
+            <p class="work-touch-info">Spring 2026 &middot; UX research &middot; Redesigning club discovery at UVA, from field research to tested prototype.</p>
+          </a>
 
-          <a href="https://myshamaxxing.github.io/hennahutwebsite/" target="_blank" rel="noopener" class="work-card">
+          <a href="https://myshamaxxing.github.io/hennahutwebsite/" target="_blank" rel="noopener" class="work-card" data-category="projects">
             <div class="work-thumb">
               <img src="images/works/hennahut.jpg" alt="" loading="lazy">
               <span class="work-arrow" aria-hidden="true">&#8599;</span>
@@ -477,9 +494,7 @@ html, body{
             <p class="work-touch-info">Jul 2025 &middot; Mobile-first booking site for my henna business.</p>
           </a>
 
-        <h2 class="works-section-title">Work</h2>
-
-          <div class="work-card">
+          <div class="work-card" data-category="work">
             <div class="work-thumb work-thumb--placeholder" data-initial="W">
               <div class="work-overlay">
                 <p class="work-meta">Summer 2026 &middot; Intern</p>
@@ -490,7 +505,7 @@ html, body{
             <p class="work-touch-info">Summer 2026 &middot; Intern &middot; B2B storefront and customer portal on Odoo.</p>
           </div>
 
-          <div class="work-card">
+          <div class="work-card" data-category="work">
             <div class="work-thumb work-thumb--placeholder" data-initial="S">
               <div class="work-overlay">
                 <p class="work-meta">Dec 2025 &ndash; Present</p>
@@ -501,9 +516,7 @@ html, body{
             <p class="work-touch-info">Dec 2025 &ndash; Present &middot; UVA staff intranet designed in Figma, built in Drupal.</p>
           </div>
 
-        <h2 class="works-section-title">Art &amp; Motion</h2>
-
-          <a href="https://www.canva.com/design/DAGwvqbE5WI/6kezEigHnN7pvdE90NJH9w/view?utm_content=DAGwvqbE5WI&amp;utm_campaign=designshare&amp;utm_medium=link2&amp;utm_source=uniquelinks&amp;utlId=h79a7b8286c" target="_blank" rel="noopener" class="work-card">
+          <a href="https://www.canva.com/design/DAGwvqbE5WI/6kezEigHnN7pvdE90NJH9w/view?utm_content=DAGwvqbE5WI&amp;utm_campaign=designshare&amp;utm_medium=link2&amp;utm_source=uniquelinks&amp;utlId=h79a7b8286c" target="_blank" rel="noopener" class="work-card" data-category="art">
             <div class="work-thumb work-thumb--placeholder" data-initial="A">
               <span class="work-arrow" aria-hidden="true">&#8599;</span>
               <div class="work-overlay">
@@ -515,7 +528,7 @@ html, body{
             <p class="work-touch-info">Motion design &middot; Animation work made in After Effects.</p>
           </a>
 
-          <a href="https://drive.google.com/drive/folders/1cz4bMN_kMf78CISDHl_681tPiob0XXt3?usp=sharing" target="_blank" rel="noopener" class="work-card">
+          <a href="https://drive.google.com/drive/folders/1cz4bMN_kMf78CISDHl_681tPiob0XXt3?usp=sharing" target="_blank" rel="noopener" class="work-card" data-category="art">
             <div class="work-thumb work-thumb--placeholder" data-initial="I">
               <span class="work-arrow" aria-hidden="true">&#8599;</span>
               <div class="work-overlay">
@@ -536,6 +549,38 @@ html, body{
       </div>
     </div>
   </div>
+
+  <script>
+    // Show one category at a time; remember it in the URL (#work, #projects, #art)
+    (function () {
+      const buttons = document.querySelectorAll(".works-filter-btn");
+      const cards = document.querySelectorAll(".work-card[data-category]");
+
+      function show(category) {
+        buttons.forEach(btn => {
+          btn.setAttribute("aria-pressed", btn.dataset.filter === category ? "true" : "false");
+        });
+        cards.forEach(card => {
+          card.hidden = card.dataset.category !== category;
+        });
+      }
+
+      buttons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          show(btn.dataset.filter);
+          history.replaceState(null, "", "#" + btn.dataset.filter);
+        });
+      });
+
+      function showFromHash() {
+        const fromHash = location.hash.slice(1);
+        show(["work", "projects", "art"].includes(fromHash) ? fromHash : "work");
+      }
+
+      window.addEventListener("hashchange", showFromHash);
+      showFromHash();
+    })();
+  </script>
 
 </body>
 </html>

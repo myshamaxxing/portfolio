@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HooSynced – Mysha Mosharaf</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Nothing+You+Could+Do&display=swap" rel="stylesheet">
+
+  <style>
+/* ===== CASE STUDY LAYOUT (shares header styles with works.html) ===== */
+.main-container{
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* background stays behind everything */
+.background-image{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 1;
+}
+
+/* =========================
+   HEADER (NAV + NAME)
+   ========================= */
+
+/* always on top */
+.nav-fixed{
+  position: fixed;
+  width: 75%;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  height: auto;
+  z-index: 999999;
+  pointer-events: auto;
+}
+
+/* keep your exact nav box placement (100px down) */
+.navigation-links{
+  width: 100%;
+  height: 40px;
+  position: absolute;
+  left: 0;
+  top: 100px;
+  background: rgba(252, 252, 250, 0);
+  outline: 1px solid white;
+  outline-offset: -2px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(20px, 10vw, 376px);
+  white-space: nowrap;
+
+  pointer-events: auto;
+}
+
+.navigation-link-item{
+  color: #FCFCFA;
+  font-size: clamp(10px, 2vw, 20px);
+  font-family: 'Archivo Black', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.2;
+  text-align: center;
+
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.25s ease, transform 0.25s ease, opacity 0.25s ease;
+}
+
+.navigation-link-item:hover,
+.navigation-link-item:focus{
+  color: #3A5A95;
+  transform: translateY(-2px);
+  opacity: 0.9;
+  outline: none;
+}
+
+.navigation-link-item.active{
+  color: #3A5A95;
+}
+
+/* =========================
+   NAME (clickable overlay above nav)
+   ========================= */
+
+.name-fixed{
+  position: fixed;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  z-index: 1000000;
+  pointer-events: auto;
+  cursor: pointer;
+  text-decoration: none;
+  transform-origin: center;
+}
+
+/* important: keep the link clickable, but prevent children from "stealing" clicks */
+.name-fixed *{
+  pointer-events: none;
+}
+
+.your-name-container{
+  position: relative;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.your-name-text{
+  color: #fff;
+  font-size: clamp(36px, 3vw, 110px);
+  font-family: Cochin, serif;
+  font-weight: 500;
+  line-height: 0.9;
+  text-align: center;
+}
+
+/* Works content */
+.works-wrap{
+  position: absolute;
+  z-index: 2;
+  top: 150px; /* start below the fixed name + nav so cards don't scroll under them */
+  padding: 20px 40px 60px 40px;
+  box-sizing: border-box; /* keep padding inside 100% so cards don't overflow */
+  width: 100%;
+  height: calc(100% - 150px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+.works-wrap::-webkit-scrollbar {
+  width: 8px;
+}
+
+.works-wrap::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.works-wrap::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+.works-wrap::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Case study content */
+.case{
+  max-width: 900px;
+  margin: 0 auto;
+  color: #fff;
+}
+
+.case-back{
+  display: inline-block;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.case-back:hover,
+.case-back:focus-visible{
+  color: #3A5A95;
+  text-shadow: none;
+}
+
+.case-header{
+  margin: 24px 0 32px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+.case-meta{
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.case-title{
+  font-family: 'Archivo Black', sans-serif;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 400;
+  line-height: 1.05;
+  margin: 0 0 12px;
+}
+
+.case-summary{
+  font-family: Cochin, serif;
+  font-size: clamp(17px, 1.6vw, 21px);
+  line-height: 1.4;
+  max-width: 680px;
+  margin: 0;
+}
+
+.case-role{
+  margin-top: 12px;
+}
+
+.case-tags{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.case-tag{
+  font-family: "Nothing You Could Do", cursive;
+  font-size: 14px;
+  color: #fff;
+  background: #3A5A95;
+  padding: 4px 12px;
+  border-radius: 12px;
+  white-space: nowrap;
+  text-shadow: none;
+}
+
+/* Slides: same rounded tile + offset shadow as the Works cards */
+.slide{
+  margin: 0 0 32px;
+  border: 2px solid #3A5A95;
+  border-radius: 18px;
+  box-shadow: 6px 6px 0 #3A5A95;
+  overflow: hidden;
+  background: #F4EFE6;
+}
+
+.slide img{
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+html, body{
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 1100px){
+  .works-wrap{
+    padding: 20px 20px 40px 20px;
+  }
+}
+
+@media (max-width: 520px){
+  .slide{
+    border-radius: 12px;
+    box-shadow: 4px 4px 0 #3A5A95;
+    margin-bottom: 20px;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ✅ STICKY NAV (always visible) -->
+  <div class="nav-fixed" id="navFixed">
+    <div class="navigation-links">
+      <a href="about.html" class="navigation-link-item">About me</a>
+      <a href="resume.html" class="navigation-link-item">Resume</a>
+      <a href="works.html#projects" class="navigation-link-item active">Works</a>
+    </div>
+  </div>
+
+  <!-- ✅ STICKY NAME -->
+  <a href="index.html" class="name-fixed" id="nameFixed">
+    <div class="your-name-container">
+      <div class="your-name-text">Mysha</div>
+      <div class="your-name-text">Mosharaf</div>
+    </div>
+  </a>
+
+  <div class="main-container">
+    <!-- Background image -->
+    <img class="background-image" src="images/background.png" alt="">
+
+    <div class="works-wrap">
+      <article class="case">
+        <a class="case-back" href="works.html#projects">&larr; Back to projects</a>
+
+        <header class="case-header">
+          <p class="case-meta">Spring 2026 &middot; UX research &middot; Team project</p>
+          <h1 class="case-title">HooSynced</h1>
+          <p class="case-summary">Redesigning club discovery at UVA. Students don&rsquo;t know what clubs exist, or if they belong there, because club info is scattered across group chats, Instagram and the official directory. We ran contextual inquiries, sketched and prototyped one shared platform, then usability tested it with 6 benchmark tasks.</p>
+          <p class="case-summary case-role"><strong>My role:</strong> design, mental models and prototyping.</p>
+          <div class="case-tags">
+            <span class="case-tag">Contextual inquiry</span>
+            <span class="case-tag">Mental models</span>
+            <span class="case-tag">Sketching</span>
+            <span class="case-tag">Prototyping</span>
+            <span class="case-tag">Usability testing</span>
+          </div>
+        </header>
+
+        <figure class="slide">
+          <img src="images/works/hoosynced/slide-1.jpg" alt="Title slide: HooSynced, redesigning club discovery at UVA. Students don't know what clubs exist, or if they belong there." width="1600" height="900">
+        </figure>
+        <figure class="slide">
+          <img src="images/works/hoosynced/slide-2.jpg" alt="The Problem and Users: club info is scattered across group chats, the official club directory, and Instagram." width="1600" height="900" loading="lazy">
+        </figure>
+        <figure class="slide">
+          <img src="images/works/hoosynced/slide-3.jpg" alt="Contextual Inquiry and Analysis: diagrams of the current club communication system and the envisioned one with a central club platform." width="1600" height="900" loading="lazy">
+        </figure>
+        <figure class="slide">
+          <img src="images/works/hoosynced/slide-4.jpg" alt="Key Design Decisions: annotated paper sketches of the login, dashboard, calendar sync, club profile and event screens, plus the project poster." width="1600" height="900" loading="lazy">
+        </figure>
+        <figure class="slide">
+          <img src="images/works/hoosynced/slide-5.jpg" alt="Defending the Unified Interface: responding to critique of one system for all roles. Find club, unclaimed badge, claim, verify. Benchmark task completed in 35 seconds." width="1600" height="900" loading="lazy">
+        </figure>
+        <figure class="slide">
+          <img src="images/works/hoosynced/slide-6.jpg" alt="Prototype: progression from paper wireframes to digital wireframes, Claude Design, and a working Replit prototype." width="1600" height="900" loading="lazy">
+        </figure>
+        <figure class="slide">
+          <img src="images/works/hoosynced/slide-7.jpg" alt="Evaluation at a Glance: three user classes, testing over Zoom with 6 benchmark tasks measuring time, errors, taps and Likert ratings. Key findings on Join vs. Follow, an unclear + button, and a responsive layout issue." width="1600" height="900" loading="lazy">
+        </figure>
+        <figure class="slide">
+          <img src="images/works/hoosynced/slide-9.jpg" alt="Questions?" width="1600" height="900" loading="lazy">
+        </figure>
+
+        <a class="case-back" href="works.html#projects">&larr; Back to projects</a>
+      </article>
+    </div>
+  </div>
+
+</body>
+</html>
